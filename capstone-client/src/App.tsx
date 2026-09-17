@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
@@ -6,45 +6,26 @@ import ClaimsPage from './pages/ClaimsPage'
 import ClaimDetailPage from './pages/ClaimDetailPage'
 import PoliciesPage from './pages/PoliciesPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import Layout from './components/Layout'
 
-// Full navigation/layout wiring lands in a later branch.
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route
-        path="/"
         element={
           <ProtectedRoute>
-            <DashboardPage />
+            <Layout />
           </ProtectedRoute>
         }
-      />
-      <Route
-        path="/claims"
-        element={
-          <ProtectedRoute>
-            <ClaimsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/claims/:id"
-        element={
-          <ProtectedRoute>
-            <ClaimDetailPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/policies"
-        element={
-          <ProtectedRoute>
-            <PoliciesPage />
-          </ProtectedRoute>
-        }
-      />
+      >
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/claims" element={<ClaimsPage />} />
+        <Route path="/claims/:id" element={<ClaimDetailPage />} />
+        <Route path="/policies" element={<PoliciesPage />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
