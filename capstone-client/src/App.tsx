@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ClaimsPage from './pages/ClaimsPage'
 import ClaimDetailPage from './pages/ClaimDetailPage'
+import PoliciesPage from './pages/PoliciesPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 // Full navigation/layout wiring lands in a later branch.
@@ -33,6 +34,14 @@ function App() {
         element={
           <ProtectedRoute>
             <ClaimDetailPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/policies"
+        element={
+          <ProtectedRoute>
+            <PoliciesPage />
           </ProtectedRoute>
         }
       />
