@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import DashboardPage from './pages/DashboardPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
-// Placeholder home route; replaced with the full route table in a later branch.
+// Full navigation/layout wiring lands in a later branch.
 function App() {
   return (
     <Routes>
@@ -13,7 +14,7 @@ function App() {
         path="/"
         element={
           <ProtectedRoute>
-            <div className="page">Dashboard coming soon</div>
+            <DashboardPage />
           </ProtectedRoute>
         }
       />
