@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { connectDB } from "./config/db";
 import User from "./models/User";
 import Policy from "./models/Policy";
-import Claim from "./models/Claim";
+import Claim, { IClaim } from "./models/Claim";
 
 const seed = async () => {
   await connectDB();
@@ -69,7 +69,7 @@ const seed = async () => {
     },
   ]);
 
-  const claims = await Claim.create([
+  const claimData: Array<Pick<IClaim, "policy" | "description" | "incidentDate" | "amount" | "status" | "assignedTo">> = [
     {
       policy: autoPolicy._id,
       description: "Rear-end collision on Main St.",
@@ -118,7 +118,12 @@ const seed = async () => {
       status: "submitted",
       assignedTo: adjusterTwo._id,
     },
-  ]);
+  ];
+
+  const claims: IClaim[] = [];
+  for (const data of claimData) {
+    claims.push(await Claim.create(data));
+  }
 
   claims[0].notes.push({ author: admin._id, text: "Initial report received, awaiting photos.", createdAt: new Date() });
   claims[1].notes.push(
